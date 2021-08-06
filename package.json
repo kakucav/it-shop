@@ -1,0 +1,11 @@
+{
+  "name": "it-shop",
+  "version": "1.0.0",
+  "description": "IT equipment shop application created using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vidoslav Kakuca",
+  "license": "ISC"
+}
