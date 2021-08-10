@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import isEmpty from 'validator/lib/isEmpty';
 
+import { login } from '../api/auth';
 import { showErrorMessage } from '../utilities/messages';
 import { showLoadingButton } from '../utilities/loading';
-import { login } from '../api/auth';
 import { setAuthentication, isAuthenticated } from '../utilities/auth';
 
 const Login = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isAuthenticated() && isAuthenticated().role === 1) {
+      history.push('/admin/dashboard');
+    } else if (isAuthenticated() && isAuthenticated().role === 0) {
+      history.push('/user/dashboard');
+    }
+  }, [history]);
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -36,9 +46,9 @@ const Login = () => {
           setAuthentication(response.data.token, response.data.user);
 
           if (isAuthenticated() && isAuthenticated().role === 1) {
-            console.log('admin');
+            history.push('/admin/dashboard');
           } else {
-            console.log('user');
+            history.push('/user/dashboard');
           }
         })
         .catch((error) => {

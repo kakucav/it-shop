@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'validator/lib/isEmpty';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import equals from 'validator/lib/equals';
 
+import { register } from '../api/auth';
 import { showErrorMessage, showSuccessMessage } from '../utilities/messages';
 import { showLoadingButton } from '../utilities/loading';
-import { register } from '../api/auth';
+import { isAuthenticated } from '../utilities/auth';
 
 const Register = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isAuthenticated() && isAuthenticated().role === 1) {
+      history.push('/admin/dashboard');
+    } else if (isAuthenticated() && isAuthenticated().role === 0) {
+      history.push('/user/dashboard');
+    }
+  }, [history]);
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
