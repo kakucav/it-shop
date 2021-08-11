@@ -15,7 +15,7 @@ const Header = ({ history }) => {
   const showNavigation = () => (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container-fluid'>
-        <Link className='navbar-brand mx-3' to='#'>
+        <Link className='navbar-brand mx-2' to='#'>
           <img src='/logo.svg' alt='logo' style={{ width: '40px', height: '40px' }} />
         </Link>
         <button
@@ -34,18 +34,18 @@ const Header = ({ history }) => {
             {!isAuthenticated() && (
               <>
                 <li className='nav-item'>
-                  <Link className='nav-link mx-3' to='/'>
-                    Početna
+                  <Link className='nav-link mx-2' to='/'>
+                    <i className='fas fa-home fw'></i> Početna
                   </Link>
                 </li>
                 <li className='nav-item'>
-                  <Link className='nav-link mx-3' to='/register'>
-                    Registracija
+                  <Link className='nav-link mx-2' to='/register'>
+                    <i className='fas fa-pen fw'></i> Registracija
                   </Link>
                 </li>
                 <li className='nav-item'>
-                  <Link className='nav-link mx-3' to='/login'>
-                    Prijava
+                  <Link className='nav-link mx-2' to='/login'>
+                    <i className='fas fa-sign-in-alt fw'></i> Prijava
                   </Link>
                 </li>
               </>
@@ -53,8 +53,8 @@ const Header = ({ history }) => {
             {isAuthenticated() && isAuthenticated().role === 0 && (
               <>
                 <li className='nav-item'>
-                  <Link className='nav-link mx-3' to='/user/dashboard'>
-                    Dashboard
+                  <Link className='nav-link mx-2' to='/user/dashboard'>
+                    <i className='fas fa-home fw'></i> Dashboard
                   </Link>
                 </li>
               </>
@@ -62,8 +62,8 @@ const Header = ({ history }) => {
             {isAuthenticated() && isAuthenticated().role === 1 && (
               <>
                 <li className='nav-item'>
-                  <Link className='nav-link mx-3' to='/admin/dashboard'>
-                    Dashboard
+                  <Link className='nav-link mx-2' to='/admin/dashboard'>
+                    <i className='fas fa-home fw'></i> Dashboard
                   </Link>
                 </li>
               </>
@@ -71,8 +71,8 @@ const Header = ({ history }) => {
             {isAuthenticated() && (
               <>
                 <li className='nav-item'>
-                  <button className='btn btn-link text-secondary text-decoration-none px-0 mx-3' onClick={handleLogout}>
-                    Odjavi se
+                  <button className='btn btn-link text-secondary text-decoration-none px-0 mx-2' onClick={handleLogout}>
+                    <i className='fas fa-sign-out-alt fw'></i> Odjavi se
                   </button>
                 </li>
               </>

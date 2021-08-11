@@ -4,7 +4,7 @@ import isEmpty from 'validator/lib/isEmpty';
 
 import { login } from '../api/auth';
 import { showErrorMessage } from '../utilities/messages';
-import { showLoadingButton } from '../utilities/loading';
+import showLoading from '../utilities/loading';
 import { setAuthentication, isAuthenticated } from '../utilities/auth';
 
 const Login = () => {
@@ -39,7 +39,7 @@ const Login = () => {
     if (isEmpty(username) || isEmpty(password)) {
       setFormData({ ...formData, errorMessage: 'Sva polja moraju biti popunjena!' });
     } else {
-      setFormData({ ...formData, loading: true });
+      setFormData({ ...formData, errorMessage: false, loading: true });
 
       login(formData)
         .then((response) => {
@@ -52,7 +52,7 @@ const Login = () => {
           }
         })
         .catch((error) => {
-          setFormData({ ...formData, errorMessage: error.response.data.errorMessage });
+          setFormData({ ...formData, loading: false, errorMessage: error.response.data.errorMessage });
         });
     }
   };
@@ -62,6 +62,7 @@ const Login = () => {
     <form className='login-form mt-2' autoComplete='off' noValidate onSubmit={handleSubmit}>
       <h3 className='text-center my-4'>Prijava korisnika</h3>
       {errorMessage && showErrorMessage(errorMessage)}
+      {loading && showLoading()}
       {/* username */}
       <div className='input-group my-4'>
         <span className='input-group-text'>
@@ -92,13 +93,9 @@ const Login = () => {
       </div>
       {/* button */}
       <div className='form-gorup my-4'>
-        {loading ? (
-          showLoadingButton()
-        ) : (
-          <button type='submit' className='btn btn-primary btn-block w-100'>
-            Prijavi se
-          </button>
-        )}
+        <button type='submit' className='btn btn-primary btn-block w-100' disabled={loading}>
+          Prijavi se
+        </button>
       </div>
       <p className='text-center text-black'>
         Nemaš nalog? <Link to='/register'>Registruj se</Link>

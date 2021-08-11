@@ -7,7 +7,7 @@ import equals from 'validator/lib/equals';
 
 import { register } from '../api/auth';
 import { showErrorMessage, showSuccessMessage } from '../utilities/messages';
-import { showLoadingButton } from '../utilities/loading';
+import showLoading from '../utilities/loading';
 import { isAuthenticated } from '../utilities/auth';
 
 const Register = () => {
@@ -80,6 +80,7 @@ const Register = () => {
       };
       setFormData({
         ...formData,
+        errorMessage: false,
         loading: true,
       });
 
@@ -115,6 +116,7 @@ const Register = () => {
       <h3 className='text-center my-4'>Registracija novog korisnika</h3>
       {errorMessage && showErrorMessage(errorMessage)}
       {successMessage && showSuccessMessage(successMessage)}
+      {loading && showLoading()}
       {/* username */}
       <div className='input-group my-4'>
         <span className='input-group-text'>
@@ -229,13 +231,9 @@ const Register = () => {
       </div>
       {/* button */}
       <div className='form-gorup my-4'>
-        {loading ? (
-          showLoadingButton()
-        ) : (
-          <button type='submit' className='btn btn-primary btn-block w-100'>
-            Kreiraj nalog
-          </button>
-        )}
+        <button type='submit' className='btn btn-primary btn-block w-100' disabled={loading}>
+          Kreiraj nalog
+        </button>
       </div>
       <p className='text-center text-black'>
         Registrovan si? <Link to='/login'>Prijavi se</Link>

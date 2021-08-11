@@ -1,10 +1,11 @@
 import React from 'react';
 
-const showLoadingButton = () => (
-  <button className='btn btn-primary w-100' type='button' disabled>
-    <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>
-    <span className='visually-hidden'>Loading...</span>
-  </button>
+const showLoading = () => (
+  <div className='d-flex justify-content-center'>
+    <div className='spinner-border' role='status'>
+      <span className='visually-hidden'>Loading...</span>
+    </div>
+  </div>
 );
 
-export { showLoadingButton };
+export default showLoading;

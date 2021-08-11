@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import User from '../models/user.js';
+import User from '../models/User.js';
 
 const { JWT_SECRET, JWT_EXPIRE } = process.env;
 
@@ -48,7 +48,7 @@ const loginController = async (req, res) => {
 
     const { _id, email, role, address = {} } = user;
 
-    const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRE });
+    const token = jwt.sign({ user: { _id: user._id } }, JWT_SECRET, { expiresIn: JWT_EXPIRE });
 
     res.json({ token, user: { _id, username, email, role, address } });
   } catch (error) {
