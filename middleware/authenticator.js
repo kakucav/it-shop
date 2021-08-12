@@ -13,7 +13,6 @@ const authenticateJWT = (req, res, next) => {
 
     req.user = decoded.user;
 
-    console.log(req.user);
     next();
   } catch (error) {
     res.status(401).json({ errorMessage: 'Autorizacija odbijena!' });

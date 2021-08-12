@@ -12,4 +12,10 @@ const createCategory = async (data) => {
   return response;
 };
 
-export { createCategory };
+const getCategories = async () => {
+  const response = await axios.get('/api/category');
+
+  return response;
+};
+
+export { createCategory, getCategories };

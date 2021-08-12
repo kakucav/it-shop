@@ -46,9 +46,9 @@ const Login = () => {
           setAuthentication(response.data.token, response.data.user);
 
           if (isAuthenticated() && isAuthenticated().role === 1) {
-            history.push('/admin/dashboard');
+            history.push('/admin/panel');
           } else {
-            history.push('/user/dashboard');
+            history.push('/user/panel');
           }
         })
         .catch((error) => {

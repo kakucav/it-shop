@@ -7,8 +7,8 @@ import Header from './Header';
 import Home from './Home';
 import Register from './Register';
 import Login from './Login';
-import UserDashboard from './UserDashboard';
-import AdminDashboard from './AdminDashboard';
+import UserPanel from './UserPanel';
+import AdminPanel from './AdminPanel';
 import NotFound from './NotFound';
 
 const App = () => (
@@ -19,8 +19,8 @@ const App = () => (
         <Route exact path='/' component={Home} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
-        <UserRoute exact path='/user/dashboard' component={UserDashboard} />
-        <AdminRoute exact path='/admin/dashboard' component={AdminDashboard} />
+        <UserRoute exact path='/user/panel' component={UserPanel} />
+        <AdminRoute exact path='/admin/panel' component={AdminPanel} />
         <Route component={NotFound} />
       </Switch>
     </main>

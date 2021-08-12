@@ -5,7 +5,7 @@ import User from '../models/User.js';
 
 const { JWT_SECRET, JWT_EXPIRE } = process.env;
 
-const registerController = async (req, res) => {
+const register = async (req, res) => {
   const { username, email } = req.body;
 
   try {
@@ -32,7 +32,7 @@ const registerController = async (req, res) => {
   }
 };
 
-const loginController = async (req, res) => {
+const login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -56,4 +56,4 @@ const loginController = async (req, res) => {
   }
 };
 
-export { registerController, loginController };
+export { register, login };

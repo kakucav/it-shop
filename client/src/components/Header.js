@@ -53,8 +53,8 @@ const Header = ({ history }) => {
             {isAuthenticated() && isAuthenticated().role === 0 && (
               <>
                 <li className='nav-item'>
-                  <Link className='nav-link mx-2' to='/user/dashboard'>
-                    <i className='fas fa-home fw'></i> Dashboard
+                  <Link className='nav-link mx-2' to='/user/panel'>
+                    <i className='fas fa-home fw'></i> Panel
                   </Link>
                 </li>
               </>
@@ -62,8 +62,8 @@ const Header = ({ history }) => {
             {isAuthenticated() && isAuthenticated().role === 1 && (
               <>
                 <li className='nav-item'>
-                  <Link className='nav-link mx-2' to='/admin/dashboard'>
-                    <i className='fas fa-home fw'></i> Dashboard
+                  <Link className='nav-link mx-2' to='/admin/panel'>
+                    <i className='fas fa-home fw'></i> Panel
                   </Link>
                 </li>
               </>

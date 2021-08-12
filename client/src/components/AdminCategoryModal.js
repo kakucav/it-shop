@@ -5,18 +5,13 @@ import { createCategory } from '../api/category';
 import { showErrorMessage, showSuccessMessage } from '../utilities/messages';
 import showLoading from '../utilities/loading';
 
-const AdminDashboard = () => {
+const AdminCategoryModal = () => {
   const [category, setCategory] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   // EVENT-HANDLERS
-  const handleModalClose = () => {
-    setErrorMessage('');
-    setSuccessMessage('');
-  };
-
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
     setErrorMessage('');
@@ -48,81 +43,6 @@ const AdminDashboard = () => {
   };
 
   // VIEWS
-  const showAdminDashboard = () => (
-    <div className='my-3'>
-      <ul className='nav nav-tabs' id='myTab' role='tablist'>
-        <li className='nav-item' role='presentation'>
-          <button
-            className='nav-link active'
-            id='home-tab'
-            data-bs-toggle='tab'
-            data-bs-target='#home'
-            type='button'
-            role='tab'
-            aria-controls='home'
-            aria-selected='true'
-          >
-            Kategorije
-          </button>
-        </li>
-        <li className='nav-item' role='presentation'>
-          <button
-            className='nav-link'
-            id='profile-tab'
-            data-bs-toggle='tab'
-            data-bs-target='#profile'
-            type='button'
-            role='tab'
-            aria-controls='profile'
-            aria-selected='false'
-          >
-            Proizvodi
-          </button>
-        </li>
-        <li className='nav-item' role='presentation'>
-          <button
-            className='nav-link'
-            id='contact-tab'
-            data-bs-toggle='tab'
-            data-bs-target='#contact'
-            type='button'
-            role='tab'
-            aria-controls='contact'
-            aria-selected='false'
-          >
-            Narudžbe
-          </button>
-        </li>
-      </ul>
-      <div className='tab-content' id='myTabContent'>
-        <div className='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'>
-          {showCategoryTab()}
-        </div>
-        <div className='tab-pane fade' id='profile' role='tabpanel' aria-labelledby='profile-tab'>
-          ...
-        </div>
-        <div className='tab-pane fade' id='contact' role='tabpanel' aria-labelledby='contact-tab'>
-          ...
-        </div>
-      </div>
-    </div>
-  );
-
-  const showCategoryTab = () => (
-    <>
-      <button
-        type='button'
-        className='btn btn-primary mx-3 my-3 '
-        data-bs-toggle='modal'
-        data-bs-target='#addCategoryModal'
-      >
-        <i className='fas fa-plus fw'></i> Dodaj kategoriju
-      </button>
-
-      {showCategoryModal()}
-    </>
-  );
-
   const showCategoryModal = () => (
     <div
       className='modal fade'
@@ -130,16 +50,14 @@ const AdminDashboard = () => {
       tabIndex='-1'
       aria-labelledby='exampleModalLabel'
       aria-hidden='true'
-      onClick={handleModalClose}
     >
       <div className='modal-dialog modal-lg modal-dialog-centered'>
         <div className='modal-content'>
-          <form onSubmit={handleCategorySubmit}>
+          <form onSubmit={handleCategorySubmit} autoComplete='off'>
             <div className='modal-header bg-dark text-white'>
               <h5 className='modal-title' id='exampleModalLabel'>
                 Kreiranje nove kategorije
               </h5>
-              <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
             </div>
             <div className='modal-body'>
               {errorMessage && showErrorMessage(errorMessage)}
@@ -163,7 +81,7 @@ const AdminDashboard = () => {
   );
 
   // RENDER
-  return <div>{showAdminDashboard()}</div>;
+  return <>{showCategoryModal()}</>;
 };
 
-export default AdminDashboard;
+export default AdminCategoryModal;

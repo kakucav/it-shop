@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import connectDB from './database/db.js';
 import authRouter from './routers/auth.js';
 import categoryRouter from './routers/category.js';
+import productRouter from './routers/product.js';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api/auth', authRouter);
 app.use('/api/category', categoryRouter);
+app.use('/api/product', productRouter);
 
 connectDB();
 
