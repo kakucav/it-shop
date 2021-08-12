@@ -1,44 +1,33 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import isEmpty from 'validator/lib/isEmpty';
 
-import { createCategory } from '../api/category';
+import { createCategory } from '../redux/actions/categoryActions';
+import { setErrorMessage, clearMessages } from '../redux/actions/messageActions';
 import { showErrorMessage, showSuccessMessage } from '../utilities/messages';
 import showLoading from '../utilities/loading';
 
 const AdminCategoryModal = () => {
-  const [category, setCategory] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const { successMessage, errorMessage } = useSelector((state) => state.messages);
+  const { loading } = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState('');
 
   // EVENT-HANDLERS
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-    setErrorMessage('');
-    setSuccessMessage('');
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+    dispatch(clearMessages());
   };
 
   const handleCategorySubmit = (e) => {
     e.preventDefault();
 
-    if (isEmpty(category)) {
-      setErrorMessage('Unesite naziv kategorije!');
+    if (isEmpty(name)) {
+      dispatch(setErrorMessage('Unesite naziv kategorije!'));
     } else {
-      setLoading(true);
-      setErrorMessage('');
-      setSuccessMessage('');
-      const data = { name: category };
-
-      createCategory(data)
-        .then((response) => {
-          setLoading(false);
-          setCategory('');
-          setSuccessMessage(response.data.successMessage);
-        })
-        .catch((error) => {
-          setLoading(false);
-          setErrorMessage(error.response.data.errorMessage);
-        });
+      const data = { name };
+      dispatch(createCategory(data));
     }
   };
 
@@ -64,7 +53,7 @@ const AdminCategoryModal = () => {
               {successMessage && showSuccessMessage(successMessage)}
               {loading && showLoading()}
               <label className='mb-2'>Naziv</label>
-              <input type='text' className='form-control mb-2' value={category} onChange={handleCategoryChange} />
+              <input type='text' className='form-control mb-2' value={name} onChange={handleNameChange} />
             </div>
             <div className='modal-footer'>
               <button type='button' className='btn btn-secondary' data-bs-dismiss='modal' disabled={loading}>

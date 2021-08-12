@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import isEmpty from 'validator/lib/isEmpty';
 
 import { createProduct } from '../api/product';
-import { getCategories } from '../api/category';
 import { showErrorMessage, showSuccessMessage } from '../utilities/messages';
 import showLoading from '../utilities/loading';
 
 const AdminProductModal = () => {
+  const { categories } = useSelector((state) => state.categories);
+
   const [product, setProduct] = useState({
     name: '',
     description: '',
@@ -18,17 +20,6 @@ const AdminProductModal = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState(null);
-
-  useEffect(() => {
-    loadCategories();
-  }, [loading]);
-
-  const loadCategories = async () => {
-    await getCategories()
-      .then((response) => setCategories(response.data.categories))
-      .catch((error) => console.log(error));
-  };
 
   const { name, description, image, productCategory, price, quantity } = product;
 

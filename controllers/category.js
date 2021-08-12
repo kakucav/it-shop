@@ -22,7 +22,7 @@ const create = async (req, res) => {
     category = new Category(req.body);
     await category.save();
 
-    res.status(201).json({ successMessage: `Kategorija ${name} uspješno kreirana.` });
+    res.status(201).json({ category, successMessage: `Kategorija ${name} uspješno kreirana.` });
   } catch (error) {
     res.status(500).json({ errorMessage: 'Greška na serveru!' });
   }
