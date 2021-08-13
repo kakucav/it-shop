@@ -1,20 +1,8 @@
 import axios from 'axios';
 
 import { START_LOADING, STOP_LOADING } from '../constants/loadingConstants';
-import { GET_CATEGORIES, CREATE_CATEGORY } from '../constants/categoryConstants';
+import { CREATE_CATEGORY, GET_CATEGORIES } from '../constants/categoryConstants';
 import { setSuccessMessage, setErrorMessage } from './messageActions';
-
-const getCategories = () => async (dispatch) => {
-  try {
-    dispatch({ type: START_LOADING });
-    const response = await axios.get('/api/category');
-    dispatch({ type: STOP_LOADING });
-    dispatch({ type: GET_CATEGORIES, payload: response.data.categories });
-  } catch (error) {
-    dispatch({ type: STOP_LOADING });
-    dispatch(setErrorMessage(error.response.data.errorMessage));
-  }
-};
 
 const createCategory = (data) => async (dispatch) => {
   try {
@@ -35,4 +23,16 @@ const createCategory = (data) => async (dispatch) => {
   }
 };
 
-export { getCategories, createCategory };
+const getCategories = () => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const response = await axios.get('/api/category');
+    dispatch({ type: STOP_LOADING });
+    dispatch({ type: GET_CATEGORIES, payload: response.data.categories });
+  } catch (error) {
+    dispatch({ type: STOP_LOADING });
+    dispatch(setErrorMessage(error.response.data.errorMessage));
+  }
+};
+
+export { createCategory, getCategories };

@@ -15,6 +15,10 @@ const AdminCategoryModal = () => {
   const [name, setName] = useState('');
 
   // EVENT-HANDLERS
+  const handleModalClick = () => {
+    dispatch(clearMessages());
+  };
+
   const handleNameChange = (e) => {
     setName(e.target.value);
     dispatch(clearMessages());
@@ -28,6 +32,7 @@ const AdminCategoryModal = () => {
     } else {
       const data = { name };
       dispatch(createCategory(data));
+      setName('');
     }
   };
 
@@ -41,7 +46,7 @@ const AdminCategoryModal = () => {
       aria-hidden='true'
     >
       <div className='modal-dialog modal-lg modal-dialog-centered'>
-        <div className='modal-content'>
+        <div className='modal-content' onClick={handleModalClick}>
           <form onSubmit={handleCategorySubmit} autoComplete='off'>
             <div className='modal-header bg-dark text-white'>
               <h5 className='modal-title' id='exampleModalLabel'>

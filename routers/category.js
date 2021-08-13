@@ -5,7 +5,7 @@ import authenticateJWT from '../middleware/authenticator.js';
 
 const router = express.Router();
 
-router.get('/', categoryController.readAll);
 router.post('/', authenticateJWT, categoryController.create);
+router.get('/', categoryController.readAll);
 
 export default router;

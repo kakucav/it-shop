@@ -1,34 +1,38 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import isEmpty from 'validator/lib/isEmpty';
 
-import { createProduct } from '../api/product';
+import { createProduct } from '../redux/actions/productActions';
+import { setErrorMessage, clearMessages } from '../redux/actions/messageActions';
 import { showErrorMessage, showSuccessMessage } from '../utilities/messages';
 import showLoading from '../utilities/loading';
 
 const AdminProductModal = () => {
   const { categories } = useSelector((state) => state.categories);
+  const { successMessage, errorMessage } = useSelector((state) => state.messages);
+  const { loading } = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
 
   const [product, setProduct] = useState({
     name: '',
     description: '',
     image: null,
-    productCategory: '',
+    category: '',
     price: '',
     quantity: '',
   });
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  const { name, description, image, productCategory, price, quantity } = product;
+  const { name, description, image, category, price, quantity } = product;
 
   // EVENT HANDLERS
+  const handleModalClick = () => {
+    dispatch(clearMessages());
+  };
+
   const handleProductChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
-    setErrorMessage('');
-    setSuccessMessage('');
+    dispatch(clearMessages());
   };
 
   const handleProductImageChange = (e) => {
@@ -43,33 +47,25 @@ const AdminProductModal = () => {
       isEmpty(name) ||
       image === null ||
       isEmpty(description) ||
-      isEmpty(productCategory) ||
+      isEmpty(category) ||
       isEmpty(quantity) ||
       isEmpty(price)
     ) {
-      setErrorMessage('Sva polja moraju biti popunjena!');
+      dispatch(setErrorMessage('Sva polja moraju biti popunjena!'));
     } else {
-      setLoading(true);
-      setErrorMessage('');
+      dispatch(clearMessages());
 
       const formData = new FormData();
       formData.append('name', name);
       formData.append('image', image);
       formData.append('description', description);
-      formData.append('category', productCategory);
+      formData.append('category', category);
       formData.append('price', price);
       formData.append('quantity', quantity);
 
-      createProduct(formData)
-        .then((response) => {
-          setSuccessMessage(response.data.successMessage);
-          setLoading(false);
-          setProduct({ name: '', image: null, description: '', productCategory: '', price: '', quantity: '' });
-        })
-        .catch((error) => {
-          setErrorMessage(error.response.data.errorMessage);
-          setLoading(false);
-        });
+      dispatch(createProduct(formData));
+
+      setProduct({ name: '', description: '', image: null, category: '', price: '', quantity: '' });
     }
   };
 
@@ -83,7 +79,7 @@ const AdminProductModal = () => {
       aria-hidden='true'
     >
       <div className='modal-dialog modal-lg modal-dialog-centered'>
-        <div className='modal-content'>
+        <div className='modal-content' onClick={handleModalClick}>
           <form onSubmit={handleProductSubmit} autoComplete='off'>
             <div className='modal-header bg-dark text-white'>
               <h5 className='modal-title' id='exampleModalLabel'>
@@ -121,9 +117,9 @@ const AdminProductModal = () => {
               />
               <label className='mb-2'>Kategorija</label>
               <select
-                name='productCategory'
+                name='category'
                 className='form-select mb-2'
-                value={productCategory}
+                value={category}
                 aria-label='Default select example'
                 onChange={handleProductChange}
               >

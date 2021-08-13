@@ -14,10 +14,20 @@ const create = async (req, res) => {
     product.image = filename;
     await product.save();
 
-    res.status(201).json({ successMessage: `Proizvod ${name} uspješno kreiran.` });
+    res.status(201).json({ product, successMessage: `Proizvod ${name} uspješno kreiran.` });
   } catch (error) {
     res.status(500).json({ errorMessage: 'Greška na serveru!' });
   }
 };
 
-export { create };
+const readAll = async (req, res) => {
+  try {
+    const products = await Product.find().populate('category', 'name');
+
+    res.status(200).json({ products });
+  } catch (error) {
+    res.status(500).json({ errorMessage: 'Greška na serveru!' });
+  }
+};
+
+export { create, readAll };

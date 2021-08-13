@@ -7,5 +7,6 @@ import upload from '../middleware/multer.js';
 const router = express.Router();
 
 router.post('/', authenticateJWT, upload.single('image'), productController.create);
+router.get('/', productController.readAll);
 
 export default router;
