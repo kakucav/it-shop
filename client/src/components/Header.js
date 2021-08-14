@@ -15,7 +15,7 @@ const Header = ({ history }) => {
   const showNavigation = () => (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container-fluid'>
-        <Link className='navbar-brand mx-2' to='#'>
+        <Link className='navbar-brand mx-2' to='/'>
           <img src='/logo.svg' alt='logo' style={{ width: '40px', height: '40px' }} />
         </Link>
         <button

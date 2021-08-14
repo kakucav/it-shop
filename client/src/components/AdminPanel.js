@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AdminCategoryModal from './AdminCategoryModal';
-import AdminProductModal from './AdminProductModal';
+import AdminCategoryTab from './AdminCategoryTab';
+import AdminProductTab from './AdminProductTab';
 
 const AdminPanel = () => {
   // VIEWS
@@ -53,10 +53,10 @@ const AdminPanel = () => {
       </ul>
       <div className='tab-content' id='myTabContent'>
         <div className='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'>
-          {showCategoryTab()}
+          <AdminCategoryTab />
         </div>
         <div className='tab-pane fade' id='profile' role='tabpanel' aria-labelledby='profile-tab'>
-          {showProductTab()}
+          <AdminProductTab />
         </div>
         <div className='tab-pane fade' id='contact' role='tabpanel' aria-labelledby='contact-tab'>
           ...
@@ -65,38 +65,8 @@ const AdminPanel = () => {
     </div>
   );
 
-  const showCategoryTab = () => (
-    <>
-      <button
-        type='button'
-        className='btn btn-primary mx-3 my-3 '
-        data-bs-toggle='modal'
-        data-bs-target='#addCategoryModal'
-      >
-        <i className='fas fa-plus fw'></i> Dodaj kategoriju
-      </button>
-
-      <AdminCategoryModal />
-    </>
-  );
-
-  const showProductTab = () => (
-    <>
-      <button
-        type='button'
-        className='btn btn-primary mx-3 my-3 '
-        data-bs-toggle='modal'
-        data-bs-target='#addProductModal'
-      >
-        <i className='fas fa-plus fw'></i> Dodaj proizvod
-      </button>
-
-      <AdminProductModal />
-    </>
-  );
-
   // RENDER
-  return <div>{showAdminPanel()}</div>;
+  return <>{showAdminPanel()}</>;
 };
 
 export default AdminPanel;

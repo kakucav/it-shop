@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { getCategories } from '../redux/actions/categoryActions';
+import { getProducts } from '../redux/actions/productActions';
 import UserRoute from './UserRoute';
 import AdminRoute from './AdminRoute';
 import Header from './Header';
@@ -18,6 +19,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getCategories());
+    dispatch(getProducts());
   }, [dispatch]);
 
   // RENDER

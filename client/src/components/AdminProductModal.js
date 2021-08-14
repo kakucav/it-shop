@@ -98,14 +98,6 @@ const AdminProductModal = () => {
                 value={name}
                 onChange={handleProductChange}
               />
-              <label className='mb-2'>Fotografija</label>
-              <input
-                type='file'
-                accept='image/*'
-                name='image'
-                className='form-control mb-2'
-                onChange={handleProductImageChange}
-              />
               <label className='mb-2'>Opis</label>
               <textarea
                 type='text'
@@ -115,22 +107,36 @@ const AdminProductModal = () => {
                 value={description}
                 onChange={handleProductChange}
               />
-              <label className='mb-2'>Kategorija</label>
-              <select
-                name='category'
-                className='form-select mb-2'
-                value={category}
-                aria-label='Default select example'
-                onChange={handleProductChange}
-              >
-                <option value=''>Izaberi kategoriju</option>
-                {categories &&
-                  categories.map((cat) => (
-                    <option key={cat._id} value={cat._id}>
-                      {cat.name}
-                    </option>
-                  ))}
-              </select>
+              <div className='row'>
+                <div className='col'>
+                  <label className='mb-2'>Fotografija</label>
+                  <input
+                    type='file'
+                    accept='image/*'
+                    name='image'
+                    className='form-control mb-2'
+                    onChange={handleProductImageChange}
+                  />
+                </div>
+                <div className='col'>
+                  <label className='mb-2'>Kategorija</label>
+                  <select
+                    name='category'
+                    className='form-select mb-2'
+                    value={category}
+                    aria-label='Default select example'
+                    onChange={handleProductChange}
+                  >
+                    <option value=''>Izaberi kategoriju</option>
+                    {categories &&
+                      categories.map((cat) => (
+                        <option key={cat._id} value={cat._id}>
+                          {cat.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
               <div className='row'>
                 <div className='col'>
                   <label className='mb-2'>Cijena</label>

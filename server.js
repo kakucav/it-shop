@@ -17,10 +17,10 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
-
 app.use('/api/auth', authRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/product', productRouter);
+app.use('/uploads', express.static('uploads'));
 
 connectDB();
 
